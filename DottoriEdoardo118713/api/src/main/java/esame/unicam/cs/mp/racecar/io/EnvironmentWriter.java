@@ -4,6 +4,7 @@ import esame.unicam.cs.mp.racecar.model.CarState;
 import esame.unicam.cs.mp.racecar.model.Environment;
 import esame.unicam.cs.mp.racecar.model.Location;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,8 +13,9 @@ import java.nio.file.Path;
  * This is a functional interface used to write the environment into a String
  *
  * @param <S>
- * @param <T>
+ * @param <C>
  **/
+@FunctionalInterface
 public interface EnvironmentWriter<S extends CarState, C extends Location<C>> {
 
     /**
@@ -34,5 +36,15 @@ public interface EnvironmentWriter<S extends CarState, C extends Location<C>> {
     default void writeTo(Path path, Environment<S, C> track) throws IOException {
         Files.write(path, stringOf(track).getBytes());
     }
-    
+
+    /**
+     * Writes the given track in the given file
+     *
+     * @param file the file where the track is saved
+     * @param track the track to write
+     * @throws IOException if an I/O error occurs while writing the file
+     * */
+    default void writeTo(File file, Environment<S, C> track) throws IOException{
+        writeTo(file.toPath(), track);
+    }
 }

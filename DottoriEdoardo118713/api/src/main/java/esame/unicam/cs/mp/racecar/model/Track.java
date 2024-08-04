@@ -1,4 +1,7 @@
 package esame.unicam.cs.mp.racecar.model;
 
-public interface Track {
+import java.util.List;
+
+public interface Track<C> {
+    List<C> neighbours(C c);
 }
