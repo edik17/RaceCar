@@ -1,0 +1,4 @@
+rootProject.name = 'DottoriEdoardo118713'
+include 'api'
+include 'app'
+
