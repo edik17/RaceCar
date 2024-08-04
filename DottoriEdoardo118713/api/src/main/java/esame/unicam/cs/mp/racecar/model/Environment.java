@@ -1,6 +1,8 @@
 package esame.unicam.cs.mp.racecar.model;
 
 
+import esame.unicam.cs.mp.racecar.model.Circuit.CircuitState;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,14 @@ public interface Environment<S extends CarState, C extends Location<C>> {
      * @return the map associating to each of the location in the given set with its state
      * */
     Map<C,S> getStatusMapOf(Collection<C> locs);
+
+    /**
+     * Returns a list containing the states of the cars at the given locations
+     *
+     * @param locs a collection of locations
+     * @return a list containing the states of the cars at the given locations
+     * */
+    List<S> statusOf(Collection<C> locs);
 
     /**
      * Returns a map containing the cars that are changing their state due to the application of the given rule
