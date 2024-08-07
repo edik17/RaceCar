@@ -1,4 +1,6 @@
 rootProject.name = 'DottoriEdoardo118713'
 include 'api'
 include 'app'
+include 'api:src:main:test'
+findProject(':api:src:main:test')?.name = 'test'
 

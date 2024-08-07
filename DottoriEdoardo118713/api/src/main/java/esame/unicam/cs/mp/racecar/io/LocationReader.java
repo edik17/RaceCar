@@ -3,6 +3,8 @@ package esame.unicam.cs.mp.racecar.io;
 
 import esame.unicam.cs.mp.racecar.model.Location;
 
+import java.io.IOException;
+
 /**
  * This interface is used to transform a location into a string.
  *
@@ -17,5 +19,5 @@ public interface LocationReader<C extends Location<C>> {
      * @param str a string containing a location.
      * @return the location associated with the given string.
      */
-    C parse(String str);
+    C parse(String str) throws IOException;
 }

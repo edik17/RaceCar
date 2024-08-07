@@ -30,13 +30,12 @@ public class CarCircuit<C extends Location<C>> implements EnvironmentLoader<Circ
         CircuitField<C> field = new CircuitField<>();
         String[] lines = content.split("\n");
         for(int i=0; i<lines.length; i++) {
+            field.setIsOnTrack(lineParser.parse(lines[i]));
             try {
-                field.setIsOnTrack(lineParser.parse(lines[i]));
+                field.setIsOnTrack( lineParser.parse(lines[i]) );
 
-            } /*catch (IOException e) { //TODO: fix this
+            } catch (IOException e) {
                 throw new IOException("Syntax error at line "+i, e);
-            }*/ finally {
-
             }
         }
         return field;

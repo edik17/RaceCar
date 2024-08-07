@@ -13,12 +13,17 @@ public enum CircuitState implements CarState {
     /**
      * The state of a out of track car
      * */
-    OUT_OF_TRACK;
+    OUT_OF_TRACK,
+
+    /**
+     * Inertia rule for the car
+     * */
+    INERTIA_TURN;
 
     /**
      * Default rules for Car models.
      * */
-    public final static Rule<CircuitState> DEFAULT_RULES = new ApplyFirst<>(new MaintainSpeedRule());
+    public final static Rule<CircuitState> DEFAULT_RULES = new ApplyFirst<>(new MaintainSpeedRule(), new IsOnTrackRule(), new WinnerRule(), new InertiaRule());
 
     /**
      * Returns true if this state represents a car in track.
@@ -39,14 +44,24 @@ public enum CircuitState implements CarState {
     }
 
     /**
+     * Returns true if this state represents a car near a turn.
+     *
+     * @return true if this state represents a car near a turn.
+     * */
+    public boolean isNearTurn() {
+        return this == INERTIA_TURN;
+    }
+
+    /**
      * Return true if the car is in track
      *
      * @return true if the car is in track
      * */
     public CircuitState swap() {
         return switch (this) {
-            case IN_TRACK -> OUT_OF_TRACK;
-            case OUT_OF_TRACK -> IN_TRACK;
+            case IN_TRACK -> IN_TRACK;
+            case OUT_OF_TRACK -> OUT_OF_TRACK;
+            case INERTIA_TURN -> INERTIA_TURN;
         };
     }
 }
