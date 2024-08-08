@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="esame.unicam.cs.mp.racecar.app.RaceCarAppController">
+
+    <!-- Header con il titolo del gioco -->
+    <top>
+        <Label text="Formula 1 - Gioco" style="-fx-font-size: 24px; -fx-font-weight: bold;" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- Area centrale per visualizzare la pista e la macchina -->
+    <center>
+        <Pane fx:id="trackPane" prefHeight="400" prefWidth="600" style="-fx-background-color: grey;">
+            <ImageView fx:id="carImageView" fitHeight="50" fitWidth="100" layoutX="275" layoutY="175"/>
+        </Pane>
+    </center>
+
+    <!-- Barra di stato in basso per informazioni aggiuntive -->
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" padding="10">
+            <Label text="Velocità: " />
+            <Label fx:id="speedLabel" text="0 km/h" />
+        </HBox>
+    </bottom>
+
+    <!-- Controlli a sinistra (accelerazione, frenata, ecc.) -->
+    <left>
+        <VBox spacing="10" alignment="CENTER" padding="10">
+            <Button text="Accelera" onAction="#handleAccelerate"/>
+            <Button text="Frena" onAction="#handleBrake"/>
+            <Button text="Gira a sinistra" onAction="#handleTurnLeft"/>
+            <Button text="Gira a destra" onAction="#handleTurnRight"/>
+        </VBox>
+    </left>
+
+    <!-- Controlli a destra (es. reset, pausa) -->
+    <right>
+        <VBox spacing="10" alignment="CENTER" padding="10">
+            <Button text="Pausa" onAction="#handlePause"/>
+            <Button text="Reset" onAction="#handleReset"/>
+        </VBox>
+    </right>
+
+</BorderPane>

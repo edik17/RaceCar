@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 group = 'esame.unicam.cs.mp.racecar'
@@ -9,11 +10,14 @@ repositories {
     mavenCentral()
 }
 
+javafx{
+    version = "19"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.apache.commons:commons-text'
 }
 
-test {
-    useJUnitPlatform()
+application {
+    mainClass = 'esame.unicam.cs.mp.racecar.app.App'
 }
