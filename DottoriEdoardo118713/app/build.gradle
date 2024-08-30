@@ -1,23 +1,29 @@
 plugins {
-    id 'java'
+    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group = 'esame.unicam.cs.mp.racecar'
+group = 'esame.unicam.cs.mp.vectorgame.app'
 version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
-javafx{
-    version = "19"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
 dependencies {
-    implementation 'org.apache.commons:commons-text'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.openjfx:javafx-controls:18.0.1'
+    implementation 'org.openjfx:javafx-fxml:22'
+    //adding dependencies to module api
+    implementation project(':api')
 }
 
+javafx{
+    version = "17.0.8"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
 application {
-    mainClass = 'esame.unicam.cs.mp.racecar.app.App'
+    // Specify the main class here
+    mainClass = 'esame.unicam.cs.mp.vectorgame.app.App'
 }

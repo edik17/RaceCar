@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'esame.unicam.cs.mp.racecar'
+group = 'esame.unicam.cs.mp.vectorgame'
 version = '1.0-SNAPSHOT'
 
 repositories {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="esame.unicam.cs.mp.vectorgame.app.RaceGame" spacing="20.0" alignment="TOP_CENTER" style="-fx-padding: 20px;">
+
+    <!-- Title -->
+    <Label text="Racetrack Game" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <!-- Track Pane to display the grid -->
+    <GridPane fx:id="trackPane" hgap="2.0" vgap="2.0" gridLinesVisible="true">
+        <!-- Track grid cells will be populated programmatically -->
+    </GridPane>
+
+    <!-- Control Buttons -->
+    <HBox spacing="20.0" alignment="CENTER">
+        <Button fx:id="startButton" text="Start Race" onAction="#simulate" style="-fx-font-size: 14px;" />
+        <Button fx:id="enableArrowKeysButton" text="Enable Arrow Keys" onAction="#enableArrowKeys" style="-fx-font-size: 14px;" />
+        <Button fx:id="resetButton" text="Reset Game" onAction="#resetGame" style="-fx-font-size: 14px;" /> <!-- New Reset Button -->
+    </HBox>
+
+    <!-- Player Information Pane -->
+    <VBox spacing="10.0" alignment="CENTER_LEFT" style="-fx-padding: 20px; -fx-background-color: #f5f5f5; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-border-radius: 5px;">
+        <Label text="Player Information:" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <VBox spacing="8.0" alignment="CENTER_LEFT">
+            <Label fx:id="player1Label" text="Player 1: Position (x,y), Velocity: (vx, vy)" style="-fx-font-size: 14px;" />
+            <Label fx:id="player2Label" text="Player 2: Position (x,y), Velocity: (vx, vy)" style="-fx-font-size: 14px;" />
+            <!-- Additional player labels can be added here -->
+        </VBox>
+    </VBox>
+
+</VBox>
