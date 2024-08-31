@@ -1,12 +1,6 @@
 package esame.unicam.cs.mp.vectorgame.api.model.game;
 
 public interface Gamer<T extends Grid<T>> {
-    /**
-     * Retrieves the name of the player.
-     *
-     * @return A string representing the player's name.
-     */
-    String getName();
 
     /**
      * Gets the current position of the player on the track.

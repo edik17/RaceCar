@@ -12,6 +12,7 @@ import java.util.List;
  * @param <T> the specific type of cells that make up the track, extending {@link Grid}.
  */
 public interface Track<T extends Grid<T>> {
+
     /**
      * Adds a cell to the track. This method is used to populate the track with cells during initialization or updates.
      *
@@ -53,11 +54,28 @@ public interface Track<T extends Grid<T>> {
      * Provides a two-dimensional array representation of the cells that make up the track.
      * This can be useful for visualizations or algorithms that require a matrix form of the track.
      *
-     * @return A 2D array of {@link Grid} objects representing the layout of the track.
+     * @return A 2D array of {@link CircuitField} objects representing the layout of the track.
      */
     CircuitField[][] getGridAsMatrix();
 
+    /**
+     * Checks if the specified position is outside the boundaries of the track.
+     * This method is useful for determining whether a move or placement of an object
+     * is valid within the confines of the track.
+     *
+     * @param newPosition The position to check.
+     * @return true if the specified position is out of the track, false otherwise.
+     */
     boolean isOutOfTrack(T newPosition);
 
+    /**
+     * Retrieves the cell at the specified coordinates. This method is a more specific
+     * retrieval operation, potentially useful for accessing neighboring cells or performing
+     * localized operations on the track.
+     *
+     * @param newX The x-coordinate of the cell.
+     * @param newY The y-coordinate of the cell.
+     * @return The cell at the specified coordinates, or null if no cell exists at those coordinates.
+     */
     T getField(int newX, int newY);
 }

@@ -11,7 +11,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Parser class is responsible for reading and parsing a configuration file
+ * to create a Circuit object representing the track. It reads the dimensions
+ * of the track, initializes each cell based on provided symbols, and sets up
+ * neighboring relationships between cells for pathfinding and movement logic.
+ */
 public class Parser {
+
+    /**
+     * Parses a configuration file to create a Circuit object. This method reads the file line by line,
+     * interprets each character as a type of cell on the track, and constructs a Circuit object
+     * with those cells. The first line of the file should contain the dimensions of the track.
+     *
+     * @param br the BufferedReader used to read the configuration file
+     * @return a Circuit object representing the parsed track
+     * @throws IOException if the file is empty, improperly formatted, or cannot be read
+     */
     public Circuit parseFile(BufferedReader br) throws IOException {
         String line = br.readLine();
         if (line == null) {
@@ -38,6 +54,13 @@ public class Parser {
         return track;
     }
 
+    /**
+     * Sets the neighboring cells for each cell in the circuit.
+     * This method is used to establish adjacency relationships, which are crucial
+     * for determining valid movements and interactions between cells.
+     *
+     * @param track the Circuit object for which neighbors are to be set
+     */
     private void setNeighbors(Circuit track) {
         int[][] directions = {
                 {-1, 0}, {1, 0}, {0, -1}, {0, 1},
@@ -57,25 +80,5 @@ public class Parser {
                 }
             }
         }
-    }
-
-    public Track<CircuitField> parseFileApp(BufferedReader reader) throws IOException {
-        List<CircuitField> fields = new ArrayList<>();
-        List<CircuitField> startPositions = new ArrayList<>();
-        String line;
-        int y = 0;
-        while ((line = reader.readLine()) != null) {
-            for (int x = 0; x < line.length(); x++) {
-                char ch = line.charAt(x);
-                RaceCar carType = RaceCar.getRaceCarFromSymbol(ch);
-                CircuitField field = new CircuitField(x, y, carType);
-                fields.add(field);
-                if (ch == 'S' || RaceCar.START.equals(carType)) {
-                    startPositions.add(field);
-                }
-            }
-            y++;
-        }
-        return new ConcreteTrack(fields, startPositions);
     }
 }

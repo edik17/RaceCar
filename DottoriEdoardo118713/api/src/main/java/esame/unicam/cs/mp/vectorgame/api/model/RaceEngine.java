@@ -4,61 +4,62 @@ import esame.unicam.cs.mp.vectorgame.api.model.game.Engine;
 import esame.unicam.cs.mp.vectorgame.api.model.game.Grid;
 import esame.unicam.cs.mp.vectorgame.api.model.game.Player;
 import esame.unicam.cs.mp.vectorgame.api.model.game.Track;
-import esame.unicam.cs.mp.vectorgame.api.utils.Print;
 
 import java.util.List;
-import java.util.Random;
 
+/**
+ * RaceEngine class simulates the game loop and manages the game state for each turn.
+ *
+ * @param <T> the specific type of grid used in the game
+ */
 public class RaceEngine<T extends Grid<T>> implements Engine<T> {
-
-    private final List<Player<T>> players;
+    private List<Player<T>> players;
     private boolean isRunning;
-    private final Random random;
     private Track<T> track;
-    private List<Player<T>> listPlayers;
 
     public RaceEngine(List<Player<T>> players) {
         this.players = players;
-        this.isRunning = false;
-        this.random = new Random();
+        this.isRunning = true;
     }
 
+    /**
+     * Runs the game loop, updating player positions and checking for end conditions.
+     */
     @Override
     public void play() {
-        if(!isTerminated()){
-            players.forEach(player -> {
-                T newPosition = random.nextBoolean() ? player.move() : player.adjacentMove();
-                player.setPosition(newPosition);
-                Print.printPlayerPosition(player);
-                if (player.hasFinished()) {
-                    Print.printPlayerVictory(player);
-                    isRunning = false;
+        while (isRunning) {
+            for (Player<T> player : players) {
+                if (!player.hasFinished() && !player.hasCrashed()) {
+                    player.updatePosition();
+                    if (player.hasFinished()) {
+                        System.out.println("Player has won the race!");
+                        isRunning = false;
+                        break;
+                    } else if (player.hasCrashed()) {
+                        System.out.println("Player has crashed!");
+                    }
                 }
-            });
-            deletePlayers(players.stream().filter(Player::hasCrashed).toList());
+            }
         }
     }
 
     @Override
     public List<Player<T>> getPlayers() {
-        return this.players;
+        return players;
     }
 
     @Override
     public boolean isTerminated() {
-        return !isRunning || players.isEmpty();
-    }
-
-    private void deletePlayers(List<Player<T>> players) {
-        this.players.removeAll(players);
-        players.forEach(Print::printPlayerElimination);
+        return !isRunning || players.stream().allMatch(Player::hasFinished);
     }
 
     public void setTrack(Track<T> track) {
         this.track = track;
+        players.forEach(player -> player.setPosition(track.getStartGridPosition().get(0))); // Assumes all players start from the same position
     }
 
     public void setPlayers(List<Player<T>> players) {
-        this.listPlayers = players;
+        this.players = players;
+        players.forEach(player -> player.setPosition(track.getStartGridPosition().get(0)));
     }
 }

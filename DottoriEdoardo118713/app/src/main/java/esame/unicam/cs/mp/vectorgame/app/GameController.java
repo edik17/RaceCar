@@ -81,8 +81,7 @@ public class GameController {
     private static void initializeBots(List<Player<CircuitField>> players, Track<CircuitField> track, int numBots) {
         List<CircuitField> startPositions = track.getStartGridPosition();
         for (int i = 0; i < numBots && i < startPositions.size(); i++) {
-            String botName = "Player " + (i + 1);
-            BotPlayer bot = new BotPlayer(botName, startPositions.get(i), track);
+            BotPlayer bot = new BotPlayer(startPositions.get(i), track);
             players.add(bot);
         }
     }

@@ -36,7 +36,6 @@ public class RaceGame extends GameController {
         this.trackView.movePlayersRandomly();
         this.trackView.update();
 
-        // Check if all cars have either finished or crashed
         if (allCarsFinishedOrCrashed()) {
             startButton.setDisable(true);
             System.out.println("Race is over!");
@@ -45,77 +44,66 @@ public class RaceGame extends GameController {
 
     public void initialize() throws IOException {
         super.initialize();
-
-        // Parse and load the track
         Track<CircuitField> track = getTrack();
-
-        // Initialize the TrackControllerApp with the parsed track and players
         List<Player<CircuitField>> players = getPlayers();
         this.trackView = new TrackControllerApp(track, players);
         this.trackPane.add(trackView, 0, 0);
 
-        // Set the game engine's track and players
         this.gameEngine = (RaceEngine<CircuitField>) getGameEngine();
         this.gameEngine.setTrack(track);
         this.gameEngine.setPlayers(players);
 
-        // Ensure players are positioned on the start cells
         initializePlayersOnStartPositions(players, track);
-
-        // Render the initial state of the track and players
         this.trackView.update();
     }
 
     private void initializePlayersOnStartPositions(List<Player<CircuitField>> players, Track<CircuitField> track) {
-        List<CircuitField> startPositions = track.getStartGridPosition();  // Get all start positions
+        List<CircuitField> startPositions = track.getStartGridPosition();
 
         for (int i = 0; i < players.size() && i < startPositions.size(); i++) {
             Player<CircuitField> player = players.get(i);
             CircuitField startPosition = startPositions.get(i);
-            player.setPosition(startPosition);  // Set each player's position to a start position
+            player.setPosition(startPosition);
         }
     }
 
     private boolean allCarsFinishedOrCrashed() {
         for (Player<CircuitField> player : gameEngine.getPlayers()) {
             if (!player.hasFinished() && !player.hasCrashed()) {
-                return false; // There's still a player who can continue racing
+                return false;
             }
         }
-        return true; // All players have either finished or crashed
-    }
-
-    public void showRaceWonPopup(Player<CircuitField> player) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Player " + player.getName() + " has won the race!", ButtonType.OK);
-        alert.setTitle("Race Won");
-        alert.setHeaderText(null);
-        alert.showAndWait();
+        return true;
     }
 
 
     @FXML
     private void enableArrowKeys() {
-        trackView.requestFocus();  // Ensure the pane is focused to receive key events
-        trackView.setOnKeyPressed(trackView.getOnKeyPressed());  // Re-apply the key event handler
+        // Make sure the trackView is focused to receive key events
+        trackView.requestFocus();
+        // Set a handler for key presses, ensuring they control the player movement
+        trackView.setOnKeyPressed(trackView.getOnKeyPressed());
+        System.out.println("Arrow keys enabled. You can now control the car with the arrow keys.");
     }
 
     @FXML
     private void resetGame() {
         System.out.println("Resetting the game...");
         try {
-            // Reset player positions to start positions
-            Track<CircuitField> track = getTrack();  // Get the current track configuration
-            List<Player<CircuitField>> players = getPlayers();  // Get the list of players
-            initializePlayersOnStartPositions(players, track);  // Set players to start positions
+            Track<CircuitField> track = getTrack();
+            List<CircuitField> startPositions = track.getStartGridPosition();
+            List<Player<CircuitField>> players = getPlayers();
 
-            // Reinitialize game engine's state
+            for (int i = 0; i < players.size() && i < startPositions.size(); i++) {
+                players.get(i).setPosition(startPositions.get(i));
+                players.get(i).reset();
+            }
+
             this.gameEngine.setTrack(track);
             this.gameEngine.setPlayers(players);
 
-            // Update the track view
             this.trackView.update();
-            startButton.setDisable(false);  // Re-enable the start button
-
+            startButton.setDisable(false);
             System.out.println("Game has been reset.");
         } catch (Exception e) {
             e.printStackTrace();
