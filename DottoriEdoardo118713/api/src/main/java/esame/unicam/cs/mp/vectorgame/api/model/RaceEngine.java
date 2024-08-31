@@ -22,36 +22,11 @@ public class RaceEngine<T extends Grid<T>> implements Engine<T> {
         this.isRunning = true;
     }
 
-    /**
-     * Runs the game loop, updating player positions and checking for end conditions.
-     */
-    @Override
-    public void play() {
-        while (isRunning) {
-            for (Player<T> player : players) {
-                if (!player.hasFinished() && !player.hasCrashed()) {
-                    player.updatePosition();
-                    if (player.hasFinished()) {
-                        System.out.println("Player has won the race!");
-                        isRunning = false;
-                        break;
-                    } else if (player.hasCrashed()) {
-                        System.out.println("Player has crashed!");
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public List<Player<T>> getPlayers() {
         return players;
     }
 
-    @Override
-    public boolean isTerminated() {
-        return !isRunning || players.stream().allMatch(Player::hasFinished);
-    }
 
     public void setTrack(Track<T> track) {
         this.track = track;

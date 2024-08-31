@@ -2,6 +2,15 @@ package esame.unicam.cs.mp.vectorgame.api.model.game;
 
 import java.util.List;
 
+/**
+ * The {@code Grid} interface represents a cell or a component in the grid-based game environment.
+ * Each cell has coordinates, a type of cells defined by {@link RaceCar}, and a list of neighboring cells.
+ * Implementing this interface allows objects to interact within a grid-based game, providing
+ * essential functionalities such as position tracking and neighbor relationships.
+ *
+ * @param <C> the type of cells that extend this {@code Grid} interface, allowing for interactions
+ *            and relationships with other cells of the same type.
+ */
 public interface Grid<C extends Grid<C>> {
     /**
      * Retrieves the x-coordinate of this cell within the grid.

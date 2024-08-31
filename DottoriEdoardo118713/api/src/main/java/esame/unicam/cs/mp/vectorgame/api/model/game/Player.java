@@ -5,11 +5,12 @@ import esame.unicam.cs.mp.vectorgame.api.model.CircuitField;
 import esame.unicam.cs.mp.vectorgame.api.model.game.Track;
 
 /**
- * Represents a player in the Racetrack game. Each player has a name, position, and velocity.
+ * Represents a player in the Racegame. Each player has a position, and velocity.
  * The player can move based on their velocity and can adjust their velocity each turn.
  *
  * @param <T> the specific type of grid used in the game
  */
+
 public abstract class Player<T extends Grid<T>> implements Gamer<T> {
     private T currentPosition;
     private Movement<T> lastMove;
@@ -24,8 +25,6 @@ public abstract class Player<T extends Grid<T>> implements Gamer<T> {
         this.track = track;
         this.lastMove = null;
     }
-
-    // Existing methods...
 
     /**
      * Updates the player's position based on the current velocity.

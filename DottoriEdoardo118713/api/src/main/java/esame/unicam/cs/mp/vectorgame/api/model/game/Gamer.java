@@ -1,5 +1,14 @@
 package esame.unicam.cs.mp.vectorgame.api.model.game;
 
+/**
+ * The {@code Gamer} interface represents a participant in the game, typically a player,
+ * and defines essential methods that every player must implement. These methods handle
+ * the player's movement, position, and state within the game. Implementing classes will
+ * define the specific behavior for different types of players, such as human players or bots.
+ *
+ * @param <T> the type of grid used by the gamer, which extends {@link Grid}.
+ *            This allows the gamer to interact with different kinds of game environments.
+ */
 public interface Gamer<T extends Grid<T>> {
 
     /**

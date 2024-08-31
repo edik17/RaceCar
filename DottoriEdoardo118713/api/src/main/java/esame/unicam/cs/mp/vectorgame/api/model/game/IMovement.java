@@ -2,6 +2,14 @@ package esame.unicam.cs.mp.vectorgame.api.model.game;
 
 import esame.unicam.cs.mp.vectorgame.api.model.CircuitField;
 
+/**
+ * Represents the behavior and characteristics of movements within the game.
+ * This interface defines methods to access details about a movement, including
+ * its start and end positions, displacement calculations, and validation against
+ * a track's conditions and rules.
+ *
+ * @param <T> the specific type of grid cells that make up the track, extending {@link Grid}.
+ */
 public interface IMovement<T extends Grid<T>>{
     /**
      * Retrieves the starting cell of the movement.
