@@ -1,8 +1,6 @@
 package esame.unicam.cs.mp.vectorgame.api.model.game;
 
 import esame.unicam.cs.mp.vectorgame.api.model.Movement;
-import esame.unicam.cs.mp.vectorgame.api.model.CircuitField;
-import esame.unicam.cs.mp.vectorgame.api.model.game.Track;
 
 /**
  * Represents a player in the Racegame. Each player has a position, and velocity.
@@ -35,6 +33,9 @@ public abstract class Player<T extends Grid<T>> implements Gamer<T> {
             return; // Skip updating if the player has crashed or is out of track
         }
 
+        System.out.println("Current Position: (" + currentPosition.getX() + ", " + currentPosition.getY() + ")");
+        System.out.println("Velocity: (" + velocityX + ", " + velocityY + ")");
+
         int newX = currentPosition.getX() + velocityX;
         int newY = currentPosition.getY() + velocityY;
         T newPosition = track.getField(newX, newY);
@@ -42,10 +43,13 @@ public abstract class Player<T extends Grid<T>> implements Gamer<T> {
         if (newPosition != null && !track.isOutOfTrack(newPosition)) {
             this.lastMove = new Movement<>(this.currentPosition, newPosition);
             this.currentPosition = newPosition;
+            System.out.println("New Position: (" + currentPosition.getX() + ", " + currentPosition.getY() + ")");
         } else {
+            System.out.println("Player attempting to move out of bounds or into OUT_OF_TRACK. Position reset.");
             this.currentPosition = null; // Out of bounds or crashed
         }
     }
+
 
     /**
      * Adjusts the player's velocity. This method is called to change the player's speed.
@@ -71,10 +75,4 @@ public abstract class Player<T extends Grid<T>> implements Gamer<T> {
         return this.currentPosition == null || this.currentPosition.getCarType() == RaceCar.OUT_OF_TRACK;
     }
 
-    public void reset() {
-        this.currentPosition = track.getStartGridPosition().get(0);
-        this.finished = false;
-        this.velocityX = 0;
-        this.velocityY = 0;
-    }
 }

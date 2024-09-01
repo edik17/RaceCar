@@ -20,7 +20,6 @@
     <!-- Control Buttons -->
     <HBox spacing="20.0" alignment="CENTER">
         <Button fx:id="startButton" text="Start Race" onAction="#simulate" style="-fx-font-size: 14px;" />
-        <Button fx:id="enableArrowKeysButton" text="Enable Arrow Keys" onAction="#enableArrowKeys" style="-fx-font-size: 14px;" />
         <Button fx:id="resetButton" text="Reset Game" onAction="#resetGame" style="-fx-font-size: 14px;" /> <!-- New Reset Button -->
     </HBox>
 

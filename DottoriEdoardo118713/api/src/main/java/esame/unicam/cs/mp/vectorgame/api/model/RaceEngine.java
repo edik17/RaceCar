@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class RaceEngine<T extends Grid<T>> implements Engine<T> {
     private List<Player<T>> players;
-    private boolean isRunning;
+    private final boolean isRunning;
     private Track<T> track;
 
     public RaceEngine(List<Player<T>> players) {

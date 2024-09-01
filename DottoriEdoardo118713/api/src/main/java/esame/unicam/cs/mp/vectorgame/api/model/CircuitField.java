@@ -16,7 +16,7 @@ public class CircuitField implements Grid<CircuitField> {
     private final int x;
     private final int y;
     private final RaceCar carType;
-    private List<CircuitField> neighbors;
+    private final List<CircuitField> neighbors;
 
     /**
      * Constructs a CircuitField with the specified coordinates and cell type.
